@@ -55,7 +55,7 @@ const myTask = {
   },
   configurator({ cliArgs, cliOptions }) {
     /* builds a configuration object based on cliArgs & cliOptions.
-                            the config object is passed to each step below */
+                                            the config object is passed to each step below */
   },
   steps: [
     {
@@ -113,4 +113,66 @@ const version = require("./package.json"); // version can be a string but it's g
 runCLI(commands, version); // that's it !
 ```
 
-Cherry on top, your CLI tool can use some of the utility packages
+Cherry on top, your CLI tool can use some of the utility packages :
+
+AWS :
+
+```javascript
+// get the s3 object. it will pull credentials & config from ~/.aws/credentials
+const s3 = require("cli-task-runner/utils/aws");
+
+const Contents = await s3.list("s3Bucket/Path/To/List");
+const Body = await s3.getContent("s3Bucket/Path/To/File.json");
+const Etag = await s3.getEtag("s3Bucket/Path/To/File.json");
+const result = await s3.set("pathToPut", data, ACL = "public-read");
+// this function is curried & can be used with partial application
+const resultCurried = await s3.set("pathToPut")(data);
+const resultRemove = await s3.remove("pathToRemove");
+```
+
+File :
+
+```javascript
+const file = require("cli-task-runner/utils/file");
+const result = await file.writeFileAsync(path, data); //promisied version of fs.writeFile
+const result = await file.writeJsonToFile(path, jsonObject); //pretty json writing of a file based on a plain js object
+const result = file.copyFiles(source, files, destination, fileNameMapper = R.identity);
+// copies a list of files from one folder to another. Optional fileNameMapper function can be used to selectively modified the ouput name of specific files - sync process !
+const result = await file.copyFolder(source, destination, fileNameMapper = R.identity);
+// copies files from one folder to another (all files)
+```
+
+Logger:
+
+```javascript
+// consistent logging messages :
+const logger = require("cli-task-runner/utils/logger");
+logger.welcome(message);
+logger.log(...messages);
+logger.error(message, error); // this function is curried
+logger.warn(...messages);
+logger.error(message)(error); // if error has a stacktrace, it will be printed
+logger.success(...messages);
+```
+
+Render (EJS);
+
+```javascript
+// renders an .ejs file template
+const renderFile = require("cli-task-runner/utils/render");
+const result = await renderFile(templatePath, filePath, data);
+// inflates the template with the data, and writes the output at the file path
+```
+
+Shell :
+
+```javascript
+const shell = require("cli-task-runner/utils/shell");
+try {
+  const stout = await shell.exec(cmd, options);
+} catch (e) {
+  console.log(e) // will spit out stderr
+}
+
+shell.npm("add react@16.0.0 react-native@0.50.4", process.cwd(), options);
+```
