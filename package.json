@@ -1,0 +1,20 @@
+{
+  "name": "cli-task-runner",
+  "version": "1.0.0",
+  "description": "CLI tools made easy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Francois Roland",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.277.1",
+    "chalk": "^2.4.1",
+    "commander": "^2.16.0",
+    "ejs": "^2.6.1",
+    "ramda": "^0.25.0",
+    "shelljs": "^0.8.2"
+  }
+}
