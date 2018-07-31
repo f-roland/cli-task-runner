@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* node ^8.0.0
+- node ^8.0.0
 
 ## Usage
 
@@ -64,7 +64,7 @@ const myTask = {
         /* this is where you actually do something */
       },
       error: "Could not run the step ! 😱",
-      completion: "step done !",
+      completion: "step done !"
     },
     {
       start: "Running step 2",
@@ -72,9 +72,9 @@ const myTask = {
         /* this is where you actually do something */
       },
       error: "Nope, didn't work",
-      completion: "Yay !",
-    },
-  ],
+      completion: "Yay !"
+    }
+  ]
 };
 
 // Then register your commands.
@@ -98,11 +98,11 @@ const commands = [
       ["-o, --cli-option", "This one has no type so it will be a boolean"],
       [
         "-d, --destination-path [path]",
-        "Define a custom output path for the template project",
-      ],
+        "Define a custom output path for the template project"
+      ]
     ],
-    action: myTask,
-  },
+    action: myTask
+  }
 ];
 
 // Last but not least, import the function from this package
@@ -147,7 +147,7 @@ Logger:
 ```javascript
 // consistent logging messages :
 const logger = require("cli-task-runner/utils/logger");
-logger.welcome(message);
+logger.welcome({ packageName, version, scriptName }, message);
 logger.log(...messages);
 logger.error(message, error); // this function is curried
 logger.warn(...messages);

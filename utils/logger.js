@@ -7,16 +7,18 @@
 const chalk = require("chalk");
 const { inspect } = require("util");
 const { curry, map, unless, is, either } = require("ramda");
-const { name, version } = require("../../package.json");
 
 /**
  * Displays a welcome message when a script starts
- * @param {String} script : name of the script
+ * @param {Object} options
+ * @param {String} options.packageName : name of the script
+ * @param {String} options.scriptName: name of the script
+ * @param {String} options.version: version of the script
  * @param {String?} message : optional message to print when the script starts
  */
-function welcome(script, message) {
-  console.log("\n\u{1F527} ", chalk.blue.bold(` ${name} - v${version}`));
-  console.log("\n\u{1F525} ", chalk.magenta(` Running ${script}`));
+function welcome({ packageName, scriptName, version }, message) {
+  console.log("\n\u{1F527} ", chalk.blue.bold(` ${packageName} - v${version}`));
+  console.log("\n\u{1F525} ", chalk.magenta(` Running ${scriptName}`));
   if (message) {
     console.log(chalk.gray(message));
   }
@@ -91,5 +93,5 @@ module.exports = {
   warn,
   startStep,
   endStep,
-  success,
+  success
 };
