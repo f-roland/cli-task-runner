@@ -31,10 +31,10 @@ function registerCommand(program) {
    * @param {Function} command.action : action to perform when this command is invoked
    */
   return function(command) {
-    const { syntax, action, options } = command;
+    const { syntax, action, options, packageName, version } = command;
 
     return R.compose(
-      R.invoker(1, "action")(taskRunner(action)),
+      R.invoker(1, "action")(taskRunner(action, packageName, version)),
       R.reduce((_program, option) => _program.option(...option), R.__, options),
       R.invoker(1, "command")(syntax)
     )(program);

@@ -105,7 +105,7 @@ async function runStep(configuration, step) {
  * Runs a task
  * @param {task} task
  */
-function taskRunner(task) {
+function taskRunner(task, packageName, version) {
   const {
     name,
     startMessage,
@@ -116,7 +116,7 @@ function taskRunner(task) {
   } = task;
 
   return async function(...args) {
-    logger.welcome(name, startMessage);
+    logger.welcome({ packageName, version, scriptName: name }, startMessage);
 
     const { cliArgs, cliOptions } = parseCLIArgs(args);
 

@@ -6,17 +6,20 @@
  */
 
 const program = require("commander");
-const { forEach } = require("ramda");
+const { forEach, map, merge } = require("ramda");
 
-const { registerCommand } = require("./src/registerCommand");
+const registerCommand = require("./src/registerCommand");
 
 /**
  *
  *
  */
-function runCLI(commands, version) {
+function runCLI(commands, packageName, version) {
   /* iterating over commands to register them */
-  forEach(registerCommand(program), commands);
+  forEach(
+    registerCommand(program),
+    map(merge({ packageName, version }), command)
+  );
 
   /* pass program version and parse cli argmuents */
   program.version(version).parse(process.argv);

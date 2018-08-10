@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- node ^8.0.0
+* node ^8.0.0
 
 ## Usage
 
@@ -55,7 +55,7 @@ const myTask = {
   },
   configurator({ cliArgs, cliOptions }) {
     /* builds a configuration object based on cliArgs & cliOptions.
-                                            the config object is passed to each step below */
+                                                the config object is passed to each step below */
   },
   steps: [
     {
@@ -64,7 +64,7 @@ const myTask = {
         /* this is where you actually do something */
       },
       error: "Could not run the step ! 😱",
-      completion: "step done !"
+      completion: "step done !",
     },
     {
       start: "Running step 2",
@@ -72,9 +72,9 @@ const myTask = {
         /* this is where you actually do something */
       },
       error: "Nope, didn't work",
-      completion: "Yay !"
-    }
-  ]
+      completion: "Yay !",
+    },
+  ],
 };
 
 // Then register your commands.
@@ -98,19 +98,19 @@ const commands = [
       ["-o, --cli-option", "This one has no type so it will be a boolean"],
       [
         "-d, --destination-path [path]",
-        "Define a custom output path for the template project"
-      ]
+        "Define a custom output path for the template project",
+      ],
     ],
-    action: myTask
-  }
+    action: myTask,
+  },
 ];
 
 // Last but not least, import the function from this package
 
 const runCLI = require("cli-task-runner");
-const version = require("./package.json"); // version can be a string but it's good practice to pull it from package.json
+const { version, name } = require("./package.json"); // version can be a string but it's good practice to pull it from package.json
 
-runCLI(commands, version); // that's it !
+runCLI(commands, name, version); // that's it !
 ```
 
 Cherry on top, your CLI tool can use some of the utility packages :
