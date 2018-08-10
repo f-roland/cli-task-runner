@@ -18,7 +18,7 @@ function runCLI(commands, packageName, version) {
   /* iterating over commands to register them */
   forEach(
     registerCommand(program),
-    map(merge({ packageName, version }), command)
+    map(merge({ packageName, version }), commands)
   );
 
   /* pass program version and parse cli argmuents */
