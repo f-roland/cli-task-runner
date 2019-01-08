@@ -7,7 +7,7 @@ const { promisify } = require("util");
  * @module cli-task-runner/utils/render
  */
 
-const { writeFileAsync } = require("../file");
+const { writeFileAsync } = require("./file");
 const ejsAsync = promisify(ejs.renderFile);
 
 /**
